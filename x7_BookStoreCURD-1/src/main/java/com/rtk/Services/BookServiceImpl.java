@@ -51,21 +51,21 @@ public class BookServiceImpl implements BookServiceInterface {
 	@Override
 	public BookEntity  updateBook(Integer id, BookEntity updates) {
 		BookEntity existing = bookRepo.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-		// 2. चेक करो कि बुक अभी active है या नहीं
+		// 2. To check book is active or not
 		if (!"T".equals(existing.getActiveSw())) {
 	        throw new RuntimeException("Cannot update a deleted book");
 	    }
 		
-		// 3. अपडेट करने योग्य फील्ड्स को नए वैल्यू से रिप्लेस करो
+		// 3. set fileds that you want to update
 	    //    (यहां आप जितने फील्ड्स allow करना चाहें उतने सेट कर लें)
 		existing.setBookname(updates.getBookname());       
 	    existing.setAuthor(updates.getAuthor());
 	    existing.setPrice(updates.getPrice());
 		
-	 // 4. फिर से save करो ताकि DB में ये बदलाव persist हो जाएँ
+	 // 4. save again so that  DB me changes persist ho jaye
 	    BookEntity saved = bookRepo.save(existing);
 
-	    // 5. सेव्ड ऑब्जेक्ट रिटर्न करो (इसमें ID और सभी फील्ड्स अपडेटेड मिलेंगी)
+	    // 5.return this new updated obj
 	    return saved;
 	}
 }

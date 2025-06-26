@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Books</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Book List</h1>
+        <a th:href="@{/ui/book/create}"><button>Add New Book</button></a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.bookname}">Name</td>
+                    <td th:text="${book.author}">Author</td>
+                    <td th:text="${book.price}">Price</td>
+                    <td>
+                        <a th:href="@{|/ui/book/edit/${book.id}|}">✏️ Edit</a> |
+                        <a th:href="@{|/ui/book/delete/${book.id}|}" onclick="return confirm('Are you sure?')">🗑️ Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
